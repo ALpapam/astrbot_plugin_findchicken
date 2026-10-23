@@ -1,0 +1,13 @@
+name: astrbot_plugin_findchicken
+display_name: 找鸡
+desc: 发送「找鸡」并附带/引用图片或图片链接，通过 SauceNAO 搜索图片出处，以文字消息返回平台、名字和账号。
+short_desc: 发图配「找鸡」，帮你找出处。
+version: 1.0.0
+author: ncy13
+repo: https://github.com/ALpapam/astrbot_plugin_findchicken
+astrbot_version: ">=4.5,<5"
+support_platforms:
+  - aiocqhttp
+  - telegram
+  - lark
+  - discord

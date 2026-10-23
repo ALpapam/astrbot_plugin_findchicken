@@ -1,0 +1,2 @@
+# AstrBot 已内置 aiohttp，这里保留声明以便独立运行测试或补齐依赖
+aiohttp>=3.8
