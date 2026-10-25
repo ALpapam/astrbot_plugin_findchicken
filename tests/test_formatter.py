@@ -17,6 +17,7 @@ def make_hit(**overrides) -> SearchHit:
         "title": "夕焼け",
         "author": "テスト絵師",
         "author_handle": "",
+        "member_id": "724886",
         "page_url": "https://www.pixiv.net/artworks/123",
         "direct_url": "",
         "thumbnail": "https://img.example.com/thumb.jpg",
@@ -32,10 +33,26 @@ def test_format_single_hit_matches_template():
         "**已找到鸡**\n\n"
         "平台：Pixiv\n"
         "匹配：视觉匹配\n"
-        "名字：夕焼け\n"
-        "账号：@テスト絵師\n\n"
+        "名字：テスト絵師\n"
+        "账号：@724886\n\n"
         "⚠识图存在误差，请自行核对哦~"
     )
+
+
+def test_twitter_hit_uses_handle_for_name_and_account():
+    hit = make_hit(
+        index_id=41,
+        index_name="Twitter",
+        title="",
+        author="mamamia1008",
+        author_handle="mamamia1008",
+        member_id="",
+    )
+    text = format_hit(hit, "视觉匹配")
+
+    assert "平台：X (Twitter)" in text
+    assert "名字：mamamia1008" in text
+    assert "账号：@mamamia1008" in text
 
 
 def test_format_direct_url_match_label():
@@ -56,11 +73,12 @@ def test_show_similarity_only_for_visual_match():
 def test_multiple_hits_share_header_and_footer():
     first = make_hit()
     second = make_hit(
-        index_id=9,
+        index_id=41,
         index_name="Twitter",
         title="",
         author="artist_x",
         author_handle="artist_x",
+        member_id="",
     )
 
     text = format_hits([first, second], match_label="视觉匹配")

@@ -29,10 +29,11 @@ PIXIV_RESULTS = {
                 "index_name": "Pixiv",
             },
             "data": {
-                "pixiv_id": 123,
-                "title": "夕焼け",
-                "member_name": "テスト絵師",
-                "ext_urls": ["https://www.pixiv.net/artworks/123"],
+                "pixiv_id": 4933944,
+                "title": "妖キャラをカリスマ化してみた。",
+                "member_name": "测试絵師",
+                "member_id": 724886,
+                "ext_urls": ["https://www.pixiv.net/artworks/4933944"],
             },
         }
     ],
@@ -42,8 +43,8 @@ EXPECTED_FOUND = (
     "**已找到鸡**\n\n"
     "平台：Pixiv\n"
     "匹配：视觉匹配\n"
-    "名字：夕焼け\n"
-    "账号：@テスト絵師\n\n"
+    "名字：测试絵師\n"
+    "账号：@724886\n\n"
     "⚠识图存在误差，请自行核对哦~"
 )
 
@@ -263,12 +264,12 @@ def test_multiple_results_are_combined():
             {
                 "header": {
                     "similarity": "88.00",
-                    "index_id": 9,
-                    "index_name": "Twitter",
+                    "index_id": 41,
+                    "index_name": "Index #41: Twitter - DDPiisvUwAQOGWR.jpg",
                 },
                 "data": {
-                    "twitter_user_handle": "artist_x",
-                    "ext_urls": ["https://x.com/artist_x/status/1"],
+                    "twitter_user_handle": "mamamia1008",
+                    "ext_urls": ["https://x.com/mamamia1008/status/1"],
                 },
             }
         ],
@@ -280,7 +281,9 @@ def test_multiple_results_are_combined():
 
     assert outputs[0].count("**已找到鸡**") == 1
     assert "平台：Pixiv" in outputs[0]
+    assert "账号：@724886" in outputs[0]
     assert "平台：X (Twitter)" in outputs[0]
+    assert "账号：@mamamia1008" in outputs[0]
 
 
 def test_quoted_reply_auto_mention_fallback():

@@ -10,15 +10,18 @@
 
 平台：Pixiv
 匹配：视觉匹配
-名字：作品标题
-账号：@画师名
+名字：画师昵称
+账号：@724886
 
 ⚠识图存在误差，请自行核对哦~
 ```
 
-- 引用图片触发时，「匹配」显示 `视觉匹配`；
-- 发送图片链接触发时，「匹配」显示 `图片直链`；
-- 平台按 SauceNAO 数据库索引映射，`Pixiv` 显示为 `Pixiv`，`Twitter` 显示为 `X (Twitter)`。
+- `名字`：作者昵称。Pixiv 取画师昵称（`member_name`）；Twitter 取账号名；
+- `账号`：作者账号。Twitter 显示 `@twitter_user_handle`（如 `@mamamia1008`）；
+  Pixiv 显示 `@` + 画师数字用户 ID（`member_id`，如 `@724886`）；
+- 引用图片触发时，「匹配」显示 `视觉匹配`；发送图片链接触发时显示 `图片直链`；
+- 平台按 SauceNAO 索引 ID 映射：`5/6 → Pixiv`、`41 → X (Twitter)`、`9 → Danbooru`，
+  其余使用清理后的 `index_name`（会自动去掉 `Index #41: ... - xxx.jpg` 这类前缀和文件名）。
 
 ## 安装
 
@@ -77,6 +80,8 @@
 ## 实现说明
 
 - 搜索接口：`POST https://saucenao.com/search.php`，参数 `output_type=2&db=999`；
+- 平台映射与索引表来自 SauceNAO 官方
+  [index_details.txt](https://saucenao.com/tools/examples/api/index_details.txt)；
 - 图片链接直接通过 `url` 参数提交；本地图片 / base64 图片通过 multipart 字段 `file` 上传；
 - 引用图片优先使用 AstrBot 内置的 `extract_quoted_message_images`（4.25+），
   低版本回退到 `Reply.chain`、被引用消息文本中的链接和原始消息段；
